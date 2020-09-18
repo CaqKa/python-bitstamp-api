@@ -1,12 +1,8 @@
 # 2020 03 09 izdelan skupen api ki dela za transakcije in orderje
-# 2020 03 03 dodana funkcija beriTransakcije
-# 2020 03 01 dodana funkcija zapisiIDzadnjeTransakcijevFile
+# 2020 09 18 Čiščenje kode
 # TODO
-# zbrisem nepotrebna APIja
 
-global loginKombinacija
-import LoginPodatkiBitstampYogurt as login
-#import botek
+import PutYourLoginDataFileHere as login
 import hashlib
 import hmac
 import time
@@ -14,13 +10,6 @@ import requests
 import uuid
 import sys
 import json
-
-
-# def inicializacija(loginKombinacija):
-# if loginKombinacija == "yogurt":
-#     import LoginPodatkiBitstampYogurt as login
-# elif loginKombinacija == "2percent":
-#     import LoginPodatkiBitstampDanilo as login
 
 def API(payload,url):
     timestamp = str(int(round(time.time() * 1000)))
@@ -69,14 +58,4 @@ def API(payload,url):
 
 def APIpublic(url):
     r = requests.get("https://www.bitstamp.net"+url)
-#    data = r.json()
-#    orderBook = json.loads(data)
-###    print(json.dumps(orderBook))
     return r.content
-
-def izpisiOrderjeAPI(nakupniPar):
-    payload = {'offset': '0'}
-    url="/api/v2/open_orders/" + nakupniPar + "/"
-    orderji = json.loads(API(payload, url))
-    orderji.sort(key=lambda s: s['price'])
-    return orderji
